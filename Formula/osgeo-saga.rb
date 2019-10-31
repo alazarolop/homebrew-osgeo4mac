@@ -1,7 +1,7 @@
 class OsgeoSaga < Formula
   desc "System for Automated Geoscientific Analyses - Long Term Support"
   homepage "http://saga-gis.org"
-  url "https://downloads.sourceforge.net/project/saga-gis/SAGA%20-%207/SAGA%20-%207.2.0/saga-7.2.0.tar.gz"
+  url "https://downloads.sourceforge.net/project/saga-gis/SAGA%20-%207/SAGA%20-%207.4.0/saga-7.4.0.tar.gz"
   sha256 "56152aa39e90e60fb8bcd2b9ded30706176d3a7f50084505138fcfc26a61f281"
 
   revision 1
@@ -43,11 +43,11 @@ class OsgeoSaga < Formula
   depends_on "sqlite"
   depends_on "hdf5"
   depends_on "osgeo-hdf4"
-  depends_on "osgeo-proj"
-  depends_on "osgeo-netcdf"
-  depends_on "osgeo-laszip@2"
-  depends_on "osgeo-gdal" # (gdal-curl, gdal-filegdb, gdal-hdf4)
-  depends_on "osgeo-liblas"
+  #depends_on "osgeo-proj"
+  #depends_on "osgeo-netcdf"
+  #depends_on "osgeo-laszip@2"
+  #depends_on "osgeo-gdal" # (gdal-curl, gdal-filegdb, gdal-hdf4)
+  #depends_on "osgeo-liblas"
 
   # Vigra support builds, but dylib in saga shows 'failed' when loaded
   # Also, using --with-python will trigger vigra to be built with it, which
@@ -84,7 +84,7 @@ class OsgeoSaga < Formula
     ldflags = "-L#{HOMEBREW_PREFIX}/lib -framework IOKit -framework Carbon -framework Cocoa -framework AudioToolbox -framework System -framework OpenGL -lwx_osx_cocoau_xrc-3.0 -lwx_osx_cocoau_webview-3.0 -lwx_osx_cocoau_html-3.0 -lwx_osx_cocoau_qa-3.0 -lwx_osx_cocoau_adv-3.0 -lwx_osx_cocoau_core-3.0 -lwx_baseu_xml-3.0 -lwx_baseu_net-3.0 -lwx_baseu-3.0"
 
     # xcode : xcrun --show-sdk-path
-    link_misc = "-arch x86_64 -mmacosx-version-min=10.9 -isysroot #{MacOS::Xcode.prefix}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX#{MacOS.version}.sdk -lstdc++"
+    link_misc = "-arch x86_64 -mmacosx-version-min=10.9 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX#{MacOS.version}.sdk -lstdc++"
 
     ENV.append "CPPFLAGS", "-I#{Formula["osgeo-proj"].opt_include} -I#{Formula["osgeo-gdal"].opt_include} #{cppflags}"
     ENV.append "LDFLAGS", "-L#{Formula["osgeo-proj"].opt_lib}/libproj.dylib -L#{Formula["osgeo-gdal"].opt_lib}/libgdal.dylib #{link_misc} #{ldflags}"
@@ -107,16 +107,16 @@ class OsgeoSaga < Formula
     inreplace "src/tools/grid/grid_gridding/nn/delaunay.c", "qhull/", "libqhull/" # if build.with? "qhull"
 
     # libfire and triangle are for non-commercial use only, skip them
+    
     args = %W[
       --prefix=#{prefix}
       --disable-dependency-tracking
-      --disable-openmp
       --disable-libfire
       --enable-shared
       --enable-debug
       --enable-gui
     ]
-
+    # --disable-openmp
     # --disable-gui
     # --enable-unicode
 
