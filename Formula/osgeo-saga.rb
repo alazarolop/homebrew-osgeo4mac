@@ -2,7 +2,7 @@ class OsgeoSaga < Formula
   desc "System for Automated Geoscientific Analyses - Long Term Support"
   homepage "http://saga-gis.org"
   url "https://downloads.sourceforge.net/project/saga-gis/SAGA%20-%207/SAGA%20-%207.4.0/saga-7.4.0.tar.gz"
-  sha256 "56152aa39e90e60fb8bcd2b9ded30706176d3a7f50084505138fcfc26a61f281"
+  sha256 "73556ca1d0b83830405b40c402670ed9ac69db72d0b681a8318d33a7b2c78ce6"
 
   revision 1
 
